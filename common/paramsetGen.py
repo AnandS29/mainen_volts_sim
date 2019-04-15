@@ -230,7 +230,7 @@ args = parser.parse_args()
 #params_to_vary, num of files, model folder name
 
 # Set the file path for the params csv here.
-file_path = 'mainen_params_wide_range.csv'
+file_path = 'mainen_params_wide_range_v26.csv'
 m = args.model[0]
 modelFolder = "/global/cscratch1/sd/asranjan/" + m + "/"#
 params_csv = modelFolder + "params/" + file_path #

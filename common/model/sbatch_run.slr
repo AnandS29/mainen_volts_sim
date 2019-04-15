@@ -29,9 +29,9 @@ parFileN=params512_$arrIdx
 cp /global/cscratch1/sd/asranjan/${c}/params/$parFileN.csv ${wrkDir}
 cp /global/cscratch1/sd/asranjan/${c}/params/${parFileN}Sets.csv ${wrkDir}
 cp run_one_pin_parts.py  ${wrkDir}
-cp ./gen_hd5.py  ${wrkDir}
-cp ./run_model_cori_pin_parts.hoc  ${wrkDir}
-cp ./times_0.02_23k.csv ${wrkDir}
+cp ../common/gen_hd5.py  ${wrkDir}
+cp ../common/run_model_cori_pin_parts.hoc  ${wrkDir}
+cp ../common/times_0.02_23k.csv ${wrkDir}
 cp /global/homes/a/asranjan/ML/run_mainen/${stimName}/${stimName}.csv ${wrkDir}/${stimName}
 cp -rp /global/homes/a/asranjan/ML/run_mainen/x86_64 ${wrkDir}/
 cd ${wrkDir}
