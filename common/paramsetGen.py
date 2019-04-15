@@ -219,6 +219,12 @@ parser.add_argument(
   type=int,
   default=[1] # default if nothing is provided
 )
+parser.add_argument(
+  "--seed",  # name on the CLI - drop the `--` for positional/required parameters
+  nargs="*",  # 0 or more values expected => creates a list
+  type=int,
+  default=[1846353] # default if nothing is provided
+)
 args = parser.parse_args()
 
 #params_to_vary, num of files, model folder name
@@ -251,7 +257,7 @@ dx_vals = [0.001]
 params = params_to_vary
 
 # Set a seed value here for generating the samples between -4 and 4.
-seed = 1846353
+seed = args.seed[0]
 
 import numpy as np
 data, orig = parse_csv(params_csv)

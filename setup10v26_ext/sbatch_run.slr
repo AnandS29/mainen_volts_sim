@@ -15,7 +15,7 @@ echo SLURM_JOBID=${SLURM_JOBID}
 srcDir=`pwd`
 
 sleep 10
-model=mainen4v27
+model=mainen10v26
 c='mainen10v26'
 stimName='chirp23a'
 coreN=${c}'/sandbox/'${SLURM_ARRAY_JOB_ID}
