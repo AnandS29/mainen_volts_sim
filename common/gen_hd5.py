@@ -27,7 +27,7 @@ def find_baselines(lis, max_value, min_value):
 	return [lis[i] for i in inds], inds
 
 # tolerate one exception
-# need difference satisfy at least 1 
+# need difference satisfy at least 1
 def if_decreasing(lst):
     abnormal = 0
     for i in range(len(lst) - 1):
@@ -73,14 +73,14 @@ def find_action_potential(v, hpeaks, m):
         if ratio > potential_threshold:
             action_potential_indexs.append(i)
     return len(action_potential_indexs)'''
-    action_potential_indexs = [k for k in range(len(hpeaks[1])) if hpeaks[0][k] > -5]
+    action_potential_indexs = [k for k in range(len(hpeaks[1])) if hpeaks[0][k] > -5  and k <= 15000] # ignore everything beyond bin 15k
     #action_potential_indexs = []
     #for k in range(len(hpeaks[1])):
     #    if hpeaks[0][k] > -5:
             # fatal range
      #       if k < 500 or False:
      #           return -1
-     #       action_potential_index.append(k)        
+     #       action_potential_index.append(k)
     return len(action_potential_indexs)
 
 def id_maker(k, identification):
@@ -103,11 +103,11 @@ def label_ntraces(traces, iterable, identification):
         labels.append([id_maker(i, identification), label_and_action_potential[0], label_and_action_potential[1]])
     return labels
 def label_mutliple_ntraces(traces, iterable, identification):
-    labels = []   
+    labels = []
     for i in iterable:
         for vind in range(len(volts)):
             currvolts = traces[vind]
-            
+
         # key "voltage" deleted
         label_and_action_potential = label(volts)
         labels.append([id_maker(i, identification), label_and_action_potential[0], label_and_action_potential[1]])
@@ -133,7 +133,7 @@ def label(volts):
         maximum = max(peaks)
     else:
         maximum = -60
-            
+
     if maximum > -20:
         helper_peaks = find_peaks(volts, -40)
         peaks_number = len(helper_peaks[0])
@@ -148,7 +148,7 @@ def label(volts):
         minimum = min(refined_peaks)
         difference = maximum - minimum
         peaks_length = len(refined_peaks)
-        
+
         # checkpoint
         # set min to -80 here, modify if need
         baselines = find_baselines(volts, 0, -80)
@@ -172,12 +172,12 @@ def label(volts):
         #if number_of_action_potentials == -1:
             # fatal range
          #   return -1, -1
-        #depolarization block     
+        #depolarization block
         for p in find_peaks(volts, -70)[1]:
             if (p>4000 and p<5400):
                 return -3, -1
-            if (p>20500 and p<22000):
-                return -4, -1
+            # if (p>20500 and p<22000):
+            #     return -4, -1
         if number_of_action_potentials > 30:
             return -2, number_of_action_potentials
         if (difference > scaled_upper_bound and weird):
@@ -187,7 +187,7 @@ def label(volts):
             return 1, number_of_action_potentials
         else:
             return 1, number_of_action_potentials
-        
+
     if maximum < -40:
         return 0, 0
     else:
@@ -202,8 +202,8 @@ def gen_data(stims_path, modelFolder, params_name, psize, pMatx, pSetsN, version
         #plt.xlabel('Distance')
         #plt.ylabel('Param value [log10]')
         #plt.title('Param ' + str(i + 1))
-        #plt.scatter([j for j in range(pMatx.shape[0])], pMatx[:,i], c = 'red', label = 'Unsorted') 
-        #plt.scatter([j for j in range(pSortedMatx.shape[0])], pSortedMatx[:,i], c = 'blue', label = 'Sorted') 
+        #plt.scatter([j for j in range(pMatx.shape[0])], pMatx[:,i], c = 'red', label = 'Unsorted')
+        #plt.scatter([j for j in range(pSortedMatx.shape[0])], pSortedMatx[:,i], c = 'blue', label = 'Sorted')
         #plt.legend()
         #plt.show()
     import h5py
@@ -236,14 +236,14 @@ def gen_data(stims_path, modelFolder, params_name, psize, pMatx, pSetsN, version
         #hf.create_dataset("qa",data=all_labels_new)
         binQA = [1 if (int(q[1]) == 1 or int(q[1]) == 0.7) else 0 for q in all_labels_new]
         hf.create_dataset("binQA",data=binQA)
-        
+
         base_vals = [20,30000,20,2000,200,0.3,0.1,3,0.3,0.1,3,0.1,0.75,30000]
         vary_vals = [[0.5*i, 2*i] for i in base_vals]
         vary_vals = [
             [10,250],
+            [15000,80000],
             [10,60000],
-            [10,60000],
-            [100,4000],
+            [1000,5000],
             [100,2000],
             [0.15,0.6], [0.05,0.2], [1.5,6],
             [0.15,0.6], [0.001,10], [0.03,300],
