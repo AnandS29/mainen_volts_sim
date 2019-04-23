@@ -4,7 +4,7 @@
 #SBATCH --nodes=1
 #SBATCH --constraint=haswell
 #SBATCH --image=roybens/bpopt:v1
-#SBATCH --array 1-100
+#SBATCH --array 101-3910
 #SBATCH --export=PYTHONPATH=/build/nrn/src/nrnpython/build/lib.linux-x86_64-2.7/neuron:/build/nrn/share/lib/python
 
 echo "start-A "`hostname`" task="${job_sh}
