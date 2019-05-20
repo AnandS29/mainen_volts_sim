@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --qos=regular
+#SBATCH --qos=premium
 #SBATCH --time=29:00
 #SBATCH --nodes=1
 #SBATCH --constraint=haswell
