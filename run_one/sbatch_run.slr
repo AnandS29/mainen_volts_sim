@@ -17,8 +17,7 @@ srcDir=`pwd`
 sleep 10
 model=mainen4v27
 c='mainen4v27'
-#stimName='chirp23a'
-stimName='stims'
+stimName='chirp23a'
 coreN=${c}'/sandbox/'${SLURM_ARRAY_JOB_ID}
 arrIdx=${SLURM_ARRAY_TASK_ID}
 wrkDir=${SCRATCH}/${coreN}-${arrIdx}
@@ -26,14 +25,14 @@ echo 'my wrkDir='${wrkDir}
 mkdir -p ${wrkDir}
 mkdir -p ${wrkDir}/${stimName}
 
-parFileN=params512_$arrIdx
-cp /global/cscratch1/sd/asranjan/${c}/params/$parFileN.csv ${wrkDir}
+parFileN=params512
+cp $parFileN.csv ${wrkDir}
 cp /global/cscratch1/sd/asranjan/${c}/params/${parFileN}Sets.csv ${wrkDir}
 cp run_one_pin_parts.py  ${wrkDir}
-cp ../common/gen_hd5.py  ${wrkDir}
+cp ../run_one/gen_hd5.py  ${wrkDir}
 cp ../common/run_model_cori_pin_parts.hoc  ${wrkDir}
 cp ../common/times_0.02_23k.csv ${wrkDir}
-cp -R /global/homes/a/asranjan/ML/run_mainen/${stimName}/. ${wrkDir}/${stimName} # . <- ${stimName}.csv
+cp /global/homes/a/asranjan/ML/run_mainen/${stimName}/${stimName}.csv ${wrkDir}/${stimName}
 cp -rp /global/homes/a/asranjan/ML/run_mainen/x86_64 ${wrkDir}/
 cd ${wrkDir}
 echo inventore at start
@@ -44,7 +43,7 @@ srun -n 64 shifter /build/nrn/x86_64/bin/nrniv -mpi ./run_one_pin_parts.py $parF
 
 module load tensorflow/intel-1.12.0-py36
 
-python ./gen_hd5.py $arrIdx 512 4paramsv27 mainen4v27
+python ./gen_hd5.py $arrIdx 1 4paramsv27 $model
 
 # mv slurm log to final destination - it is alwasy a job-array
 mv $srcDir/slurm-${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}.out .

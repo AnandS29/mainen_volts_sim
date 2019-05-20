@@ -1,10 +1,10 @@
 #!/bin/bash
 #SBATCH --qos=regular
-#SBATCH --time=15:00
+#SBATCH --time=29:00
 #SBATCH --nodes=1
 #SBATCH --constraint=haswell
 #SBATCH --image=roybens/bpopt:v1
-#SBATCH --array 1-1
+#SBATCH --array 1-2
 #SBATCH --export=PYTHONPATH=/build/nrn/src/nrnpython/build/lib.linux-x86_64-2.7/neuron:/build/nrn/share/lib/python
 
 echo "start-A "`hostname`" task="${job_sh}
@@ -15,8 +15,8 @@ echo SLURM_JOBID=${SLURM_JOBID}
 srcDir=`pwd`
 
 sleep 10
-model=mainen4v27
-c='mainen4v27'
+model=multi_test
+c='multi_test'
 #stimName='chirp23a'
 stimName='stims'
 coreN=${c}'/sandbox/'${SLURM_ARRAY_JOB_ID}
@@ -44,7 +44,7 @@ srun -n 64 shifter /build/nrn/x86_64/bin/nrniv -mpi ./run_one_pin_parts.py $parF
 
 module load tensorflow/intel-1.12.0-py36
 
-python ./gen_hd5.py $arrIdx 512 4paramsv27 mainen4v27
+python ./gen_hd5.py $arrIdx 512 multi_test multi_test
 
 # mv slurm log to final destination - it is alwasy a job-array
 mv $srcDir/slurm-${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}.out .

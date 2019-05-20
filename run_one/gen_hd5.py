@@ -213,7 +213,7 @@ def gen_data(stims_path, modelFolder, params_name, psize, pMatx, pSetsN, version
         stim = genfromtxt(stim_fn, delimiter=',')
         volts_path = modelFolder + "volts/"
         counter = 0
-        volts_name = volts_path + 'pin_'+ str(psize) + '_params512_' + i + '_' + stimname
+        volts_name = volts_path + 'pin_'+ str(psize) + '_params512_' + stimname
         volts_fn = modelFolder + volts_name
         try:
             all_volts = readCSV(volts_name, ' ')
@@ -222,7 +222,7 @@ def gen_data(stims_path, modelFolder, params_name, psize, pMatx, pSetsN, version
             continue
         print("Read ", volts_name)
         all_labels_new = label_ntraces(all_volts, range(psize), volts_name)
-        outfile = modelFolder + "data/" + params_name + '_' + version + '_' + str(psize) + '_' + i + stimname[:-4]
+        outfile = modelFolder + "data/" + params_name + '_' + version + '_' + str(psize) +  stimname[:-4]
         hf = h5py.File(outfile + '.h5', 'w')
         voltages = np.array(all_volts)
         hf.create_dataset("voltages",data=voltages)
@@ -262,11 +262,10 @@ v=sys.argv[3] #10paramsv23
 model=sys.argv[4] #mainen10v23
 
 modelFolder = "/global/cscratch1/sd/asranjan/" + str(model) + "/"
-stims_path = 'chirp23a/'#stims/
+stims_path = 'chirp23a/'#
 params_name = "mainen"
 
 import glob
 import os
-pMatxcsv = readCSV("params"+str(n)+"_"+ str(k) +".csv", " ")
-pSetscsv = readCSV("params"+str(n)+"_"+ str(k) +"Sets.csv", " ")
-gen_data(stims_path, modelFolder, params_name, n, pMatxcsv, pSetscsv, v, i=str(k))
+pMatxcsv = readCSV("params"+str(n)+".csv", " ")
+gen_data(stims_path, modelFolder, params_name, n, pMatxcsv, pMatxcsv, v, i=str(k))
