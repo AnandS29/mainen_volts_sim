@@ -4,7 +4,7 @@ timesFile = ""
 paramsFile = ""
 stimFile = ""
 outFile = ""
-ntimestep =23000
+ntimestep =10000
 nparams =14
 psize =512
 ntraces =1
@@ -76,4 +76,3 @@ proc runModel(){
 //PC.done()
 //writeMatrix(outFile,matOut)
 //quit()
-

@@ -15,8 +15,8 @@ echo SLURM_JOBID=${SLURM_JOBID}
 srcDir=`pwd`
 
 sleep 10
-model=multi_test_6
-c='multi_test_6'
+model=sample_10a
+c='sample_10a'
 #stimName='chirp23a'
 stimName='stims'
 coreN=${c}'/sandbox/'${SLURM_ARRAY_JOB_ID}
@@ -32,10 +32,17 @@ cp /global/cscratch1/sd/asranjan/${c}/params/${parFileN}Sets.csv ${wrkDir}
 cp run_one_pin_parts.py  ${wrkDir}
 cp ../common/gen_hd5.py  ${wrkDir}
 cp ../common/run_model_cori_pin_parts.hoc  ${wrkDir}
-cp ../common/times_0.02_23k.csv ${wrkDir}
-cp /global/homes/a/asranjan/ML/run_mainen/${stimName}/chirp23a_2.csv ${wrkDir}/${stimName}
-cp /global/homes/a/asranjan/ML/run_mainen/${stimName}/chirp23a_3.csv ${wrkDir}/${stimName}
-cp /global/homes/a/asranjan/ML/run_mainen/${stimName}/chirp23a_4.csv ${wrkDir}/${stimName}
+cp ../common/times_0.02_10k.csv ${wrkDir}
+cp /global/homes/a/asranjan/ML/run_mainen/${stimName}/chirp_f_1_to_0_a_3_to_1.csv ${wrkDir}/${stimName}
+cp /global/homes/a/asranjan/ML/run_mainen/${stimName}/he_1_1_3.csv ${wrkDir}/${stimName}
+cp /global/homes/a/asranjan/ML/run_mainen/${stimName}/NegRamp_0p28.csv ${wrkDir}/${stimName}
+cp /global/homes/a/asranjan/ML/run_mainen/${stimName}/he_3_19_17.csv ${wrkDir}/${stimName}
+cp /global/homes/a/asranjan/ML/run_mainen/${stimName}/noise_m_1_std_4.csv ${wrkDir}/${stimName}
+cp /global/homes/a/asranjan/ML/run_mainen/${stimName}/Ramp_0p26.csv ${wrkDir}/${stimName}
+cp /global/homes/a/asranjan/ML/run_mainen/${stimName}/Ramp_0p31.csv ${wrkDir}/${stimName}
+cp /global/homes/a/asranjan/ML/run_mainen/${stimName}/sin_f_0.01_a_1_m_0.3.csv ${wrkDir}/${stimName}
+cp /global/homes/a/asranjan/ML/run_mainen/${stimName}/Step_0p221.csv ${wrkDir}/${stimName}
+cp /global/homes/a/asranjan/ML/run_mainen/${stimName}/Step_0p249.csv ${wrkDir}/${stimName}
 cp -rp /global/homes/a/asranjan/ML/run_mainen/x86_64 ${wrkDir}/
 cd ${wrkDir}
 echo inventore at start
@@ -46,7 +53,7 @@ srun -n 64 shifter /build/nrn/x86_64/bin/nrniv -mpi ./run_one_pin_parts.py $parF
 
 module load tensorflow/intel-1.12.0-py36
 
-python ./gen_hd5.py $arrIdx 512 multi_test_6 multi_test_6
+python ./gen_hd5.py $arrIdx 512 sample_10a sample_10a
 
 # mv slurm log to final destination - it is alwasy a job-array
 mv $srcDir/slurm-${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}.out .
