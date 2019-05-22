@@ -262,7 +262,7 @@ v=sys.argv[3] #10paramsv23
 model=sys.argv[4] #mainen10v23
 
 modelFolder = "/global/cscratch1/sd/asranjan/" + str(model) + "/"
-stims_path = 'chirp23a/'#stims/
+stims_path = 'stims/'#stims/
 params_name = "mainen"
 
 import glob
