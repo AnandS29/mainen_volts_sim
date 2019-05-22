@@ -4,7 +4,7 @@
 #SBATCH --nodes=1
 #SBATCH --constraint=haswell
 #SBATCH --image=roybens/bpopt:v1
-#SBATCH --array 1-2
+#SBATCH --array 1-100
 #SBATCH --export=PYTHONPATH=/build/nrn/src/nrnpython/build/lib.linux-x86_64-2.7/neuron:/build/nrn/share/lib/python
 
 echo "start-A "`hostname`" task="${job_sh}
@@ -53,7 +53,7 @@ srun -n 64 shifter /build/nrn/x86_64/bin/nrniv -mpi ./run_one_pin_parts.py $parF
 
 module load tensorflow/intel-1.12.0-py36
 
-python ./gen_hd5.py $arrIdx 512 mainen10v33 mainen10v33
+python ./gen_hd5.py $arrIdx 512 10paramsv33 mainen10v33
 
 # mv slurm log to final destination - it is alwasy a job-array
 mv $srcDir/slurm-${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}.out .
