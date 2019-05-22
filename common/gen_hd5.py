@@ -174,8 +174,10 @@ def label(volts):
          #   return -1, -1
         #depolarization block
         for p in find_peaks(volts, -70)[1]:
-            if (p>4000 and p<5400):
+            if (p>=0 and p<1000):
                 return -3, -1
+            # if (p>4000 and p<5400):
+            #     return -3, -1
             # if (p>20500 and p<22000):
             #     return -4, -1
         if number_of_action_potentials > 30:

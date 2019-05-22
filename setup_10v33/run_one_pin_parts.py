@@ -25,7 +25,7 @@ run_file = './run_model_cori_pin_parts.hoc'
 times = './times_0.02_11k.csv'
 #stims_path = './chirp23a/'
 stims_path = './stims/'
-volts_path =  '/global/cscratch1/sd/asranjan/sample_10a/volts/'
+volts_path =  '/global/cscratch1/sd/asranjan/mainen10v33/volts/'
 stims_name_list = os.listdir(stims_path)
 for stim in stims_name_list:
 	load_and_run(run_file, stims_path + stim, times, volts_path + 'pin_512_' + str(i) + "_" + stim, str(i) + ".csv")

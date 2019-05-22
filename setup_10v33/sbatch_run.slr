@@ -15,8 +15,8 @@ echo SLURM_JOBID=${SLURM_JOBID}
 srcDir=`pwd`
 
 sleep 10
-model=sample_10a
-c='sample_10a'
+model=mainen10v33
+c='mainen10v33'
 #stimName='chirp23a'
 stimName='stims'
 coreN=${c}'/sandbox/'${SLURM_ARRAY_JOB_ID}
@@ -53,7 +53,7 @@ srun -n 64 shifter /build/nrn/x86_64/bin/nrniv -mpi ./run_one_pin_parts.py $parF
 
 module load tensorflow/intel-1.12.0-py36
 
-python ./gen_hd5.py $arrIdx 512 sample_10a sample_10a
+python ./gen_hd5.py $arrIdx 512 mainen10v33 mainen10v33
 
 # mv slurm log to final destination - it is alwasy a job-array
 mv $srcDir/slurm-${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}.out .
